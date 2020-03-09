@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 typings
 *.map
+/yarn-error.log
+/yarn.lock
