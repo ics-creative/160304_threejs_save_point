@@ -4,3 +4,4 @@ typings
 *.map
 /yarn-error.log
 /yarn.lock
+/.idea/.gitignore
