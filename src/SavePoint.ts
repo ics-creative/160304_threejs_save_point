@@ -39,7 +39,7 @@ export default class SavePoint extends THREE.Object3D {
     this.add(this._particleEmitter);
 
     // 地面の光
-    const groundTexture = THREE.ImageUtils.loadTexture("img/ground.png");
+    const groundTexture = new THREE.TextureLoader().load("img/ground.png");
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(10, 10, 32, 32),
       new THREE.MeshBasicMaterial({

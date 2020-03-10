@@ -22,7 +22,7 @@ export default class Pillar extends THREE.Object3D {
     super();
 
     // テクスチャ
-    this._texture = THREE.ImageUtils.loadTexture("img/pillar.png");
+    this._texture = new THREE.TextureLoader().load("img/pillar.png");
     this._texture.wrapS = THREE.RepeatWrapping;
     this._texture.repeat.set(10, 1);
 

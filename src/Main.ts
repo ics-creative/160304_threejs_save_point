@@ -29,12 +29,12 @@ export default class Main {
 
     // レンダラー
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
-    this._renderer.setClearColor(0x83a3b7);
+    this._renderer.setPixelRatio(window.devicePixelRatio);
     this._renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this._renderer.domElement);
 
     // 環境光
-    const light = new THREE.DirectionalLight(0x555555, 1.6);
+    const light = new THREE.PointLight(0x555555, 1.6, 50);
     light.position.set(0.577, 0.577, 0.577);
     light.castShadow = true;
     this._scene.add(light);
@@ -47,10 +47,10 @@ export default class Main {
     const planeMaterial = new THREE.MeshPhongMaterial({
       map: planeTexture,
       bumpMap: planeTexture,
-      bumpScale: 0.2,
+      bumpScale: 1.0,
       shininess: 3,
       specularMap: planeTexture,
-      side: THREE.DoubleSide
+      side: THREE.BackSide
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = (90 * Math.PI) / 180;

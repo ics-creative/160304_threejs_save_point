@@ -17,7 +17,7 @@ export default class Swirl extends THREE.Object3D {
     super();
 
     // テクスチャ
-    this._texture = THREE.ImageUtils.loadTexture("img/swirl.png");
+    this._texture = new THREE.TextureLoader().load("img/swirl.png");
     this._texture.offset.y = -0.25;
     this._texture.wrapS = THREE.RepeatWrapping;
 

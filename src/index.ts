@@ -1,5 +1,5 @@
 import Main from "./Main";
 
-window.addEventListener("load", () => {
+window.addEventListener("DOMContentLoaded", () => {
   new Main();
 });
