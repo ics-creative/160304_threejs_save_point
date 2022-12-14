@@ -42,7 +42,7 @@ export default class Pillar extends THREE.Object3D {
       side: THREE.DoubleSide,
       transparent: true,
       opacity: 0.5,
-      depthWrite: false
+      depthWrite: false,
     });
     this._cylinder = new THREE.Mesh(geometry, material);
     // 地面の高さに合わせる

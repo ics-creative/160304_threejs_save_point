@@ -48,7 +48,7 @@ export default class SavePoint extends THREE.Object3D {
         map: groundTexture,
         side: THREE.DoubleSide,
         transparent: true,
-        blending: THREE.AdditiveBlending
+        blending: THREE.AdditiveBlending,
       })
     );
     ground.scale.multiplyScalar(1.35);

@@ -50,7 +50,7 @@ export default class Main {
       bumpScale: 1.0,
       shininess: 3,
       specularMap: planeTexture,
-      side: THREE.BackSide
+      side: THREE.BackSide,
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = (90 * Math.PI) / 180;

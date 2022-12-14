@@ -28,7 +28,7 @@ export default class Swirl extends THREE.Object3D {
       map: this._texture,
       transparent: true,
       //wireframe: true,
-      blending: THREE.AdditiveBlending
+      blending: THREE.AdditiveBlending,
     });
     const torus = new THREE.Mesh(geometry, material);
     torus.position.y = 0.01;

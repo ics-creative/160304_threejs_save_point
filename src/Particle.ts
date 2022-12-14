@@ -7,7 +7,7 @@ const material = new THREE.SpriteMaterial({
   color: 0x007eff,
   map: texture,
   transparent: true,
-  blending: THREE.AdditiveBlending
+  blending: THREE.AdditiveBlending,
 });
 
 /**
