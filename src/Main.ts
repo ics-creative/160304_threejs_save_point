@@ -41,21 +41,27 @@ export default class Main {
     this._scene.add(light);
 
     // 地面
-    const planeTexture = new THREE.TextureLoader().load("img/tile.png");
-    planeTexture.wrapS = planeTexture.wrapT = THREE.RepeatWrapping;
-    planeTexture.repeat.set(16, 16);
-    const planeGeometry = new THREE.PlaneGeometry(100, 100, 1, 1);
-    const planeMaterial = new THREE.MeshPhongMaterial({
-      map: planeTexture,
-      bumpMap: planeTexture,
-      bumpScale: 1.0,
-      shininess: 3,
-      specularMap: planeTexture,
-      side: THREE.BackSide,
-    });
-    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-    plane.rotation.x = (90 * Math.PI) / 180;
-    this._scene.add(plane);
+    {
+      const texture = new THREE.TextureLoader().load("img/tile.png");
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(128, 128);
+      // アンチエリアスを無効にする
+      texture.magFilter = THREE.NearestFilter;
+      texture.minFilter = THREE.NearestFilter;
+      texture.generateMipmaps = false;
+      const geometry = new THREE.PlaneGeometry(100, 100, 1, 1);
+      const material = new THREE.MeshPhongMaterial({
+        map: texture,
+        bumpMap: texture,
+        bumpScale: 1.0,
+        shininess: 3,
+        specularMap: texture,
+        side: THREE.BackSide,
+      });
+      const plane = new THREE.Mesh(geometry, material);
+      plane.rotation.x = (90 * Math.PI) / 180;
+      this._scene.add(plane);
+    }
 
     // セーブポイント
     this._savePoint = new SavePoint();

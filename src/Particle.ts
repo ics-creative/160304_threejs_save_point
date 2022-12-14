@@ -1,13 +1,11 @@
 import * as THREE from "three";
 import { Util } from "./Util";
 
-const texture = new THREE.TextureLoader().load("img/particle.png");
-
 const material = new THREE.SpriteMaterial({
   color: 0x007eff,
-  map: texture,
-  transparent: true,
+  map: new THREE.TextureLoader().load("img/particle.png"),
   blending: THREE.AdditiveBlending,
+  depthWrite: false,
 });
 
 /**
@@ -24,7 +22,7 @@ export default class Particle extends THREE.Sprite {
    * @constructor
    */
   constructor() {
-    super(material);
+    super(material.clone());
 
     // 初期化
     this._reset();
@@ -34,7 +32,11 @@ export default class Particle extends THREE.Sprite {
    * ランダムな場所に位置を設定します。
    */
   private _reset() {
-    this.position.set(0, 0, 0);
+    const radian = Math.random() * Math.PI * 2;
+    const x = Math.cos(radian) * 2;
+    const z = Math.sin(radian) * 2;
+
+    this.position.set(x, 0, z);
     this.scale.set(1, 1, 1);
     this._velocity.set(
       Util.random(-0.015, 0.015),
@@ -53,7 +55,7 @@ export default class Particle extends THREE.Sprite {
     this.material.opacity -= 0.009;
 
     const rad = Math.sin((this._counter * 30 * Math.PI) / 180);
-    const scale = 0.5 + rad;
+    const scale = 0.75 + rad;
     this.scale.set(scale, scale, scale);
 
     if (this.material.opacity <= 0) {

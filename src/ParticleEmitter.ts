@@ -10,9 +10,9 @@ export default class ParticleEmitter extends THREE.Object3D {
   /** パーティクル格納配列です。 */
   private _pool: Particle[] = [];
   /** 生成するパーティクルの数です。 */
-  private _particleNum: number = 10;
+  private _particleNum: number = 50;
   /** パーティクルを発生させる間隔です。 */
-  private _interval: number = 15;
+  private _interval: number = 2;
 
   /**
    * コンストラクターです。
