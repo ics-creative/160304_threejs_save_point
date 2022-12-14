@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "sourceMap": true,
     // TSはECMAScriptのやや互換性を意識したバージョンに変換
     "target": "ES2020",
