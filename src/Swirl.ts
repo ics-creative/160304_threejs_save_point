@@ -39,8 +39,8 @@ export default class Swirl extends THREE.Object3D {
   /**
    * フレーム毎に更新をかけます。
    */
-  public update() {
-    this._counter++;
+  public update(speedRate: number) {
+    this._counter += speedRate;
     const angle = (this._counter * Math.PI) / 180;
     this._texture.offset.x = -angle * 0.2;
   }

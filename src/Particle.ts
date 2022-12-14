@@ -15,9 +15,9 @@ const material = new THREE.SpriteMaterial({
  */
 export default class Particle extends THREE.Sprite {
   /** フレーム毎にカウントされる値です。 */
-  private _counter: number = 0;
+  private _counter = 0;
   /** パーティクルの速度です。 */
-  private _velocity: THREE.Vector3;
+  private _velocity = new THREE.Vector3();
 
   /**
    * コンストラクターです。
@@ -27,16 +27,16 @@ export default class Particle extends THREE.Sprite {
     super(material);
 
     // 初期化
-    this._init();
+    this._reset();
   }
 
   /**
    * ランダムな場所に位置を設定します。
    */
-  private _init() {
+  private _reset() {
     this.position.set(0, 0, 0);
     this.scale.set(1, 1, 1);
-    this._velocity = new THREE.Vector3(
+    this._velocity.set(
       Util.random(-0.015, 0.015),
       Util.random(0.05, 0.1),
       Util.random(-0.015, 0.015)
@@ -47,8 +47,8 @@ export default class Particle extends THREE.Sprite {
   /**
    * フレーム毎に更新をかけます。
    */
-  public update() {
-    this._counter++;
+  public update(speedRate: number) {
+    this._counter += speedRate;
     this.position.add(this._velocity.clone());
     this.material.opacity -= 0.009;
 
@@ -57,7 +57,7 @@ export default class Particle extends THREE.Sprite {
     this.scale.set(scale, scale, scale);
 
     if (this.material.opacity <= 0) {
-      this._init();
+      this._reset();
     }
   }
 }

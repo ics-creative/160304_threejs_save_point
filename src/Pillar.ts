@@ -54,9 +54,12 @@ export default class Pillar extends THREE.Object3D {
   /**
    * フレーム毎に更新をかけます。
    */
-  public update() {
-    this._counter += 0.5;
+  public update(speedRate: number) {
+    // console.log(speedRate * 1.0);
+    this._counter += speedRate;
+    // this._counter = this._counter + 0.5 * speedRate;
     const angle = (this._counter * Math.PI) / 180;
+
     // テクスチャを上下させる
     this._texture.offset.y = 0.1 + 0.2 * Math.sin(angle * 3);
     // テクスチャを回転させる

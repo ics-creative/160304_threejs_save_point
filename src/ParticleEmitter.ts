@@ -25,18 +25,18 @@ export default class ParticleEmitter extends THREE.Object3D {
   /**
    * フレーム毎に更新をかけます。
    */
-  public update() {
+  public update(speedRate: number) {
     // カウンターをインクリメント
-    this._counter++;
+    this._counter += speedRate;
 
     // パーティクルを数分更新
     const length = this._pool.length;
     for (let i = 0; i < length; i++) {
       const particle = this._pool[i];
-      particle.update();
+      particle.update(speedRate);
     }
 
-    if (this._counter % this._interval == 0) {
+    if (Math.round(this._counter) % this._interval == 0) {
       this._addParticle();
     }
   }

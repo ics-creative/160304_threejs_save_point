@@ -15,6 +15,7 @@ export default class Main {
   private _renderer: THREE.WebGLRenderer;
   /** セーブポイント単体です。 */
   private readonly _savePoint: SavePoint;
+  private _prevTime = Date.now();
 
   /**
    * コンストラクターです。
@@ -61,21 +62,47 @@ export default class Main {
     this._scene.add(this._savePoint);
 
     this._tick();
+
+    // リサイズ処理
+    this._resize();
+    window.addEventListener("resize", () => {
+      this._resize();
+    });
   }
 
   /**
    * フレーム毎のアニメーションの更新をかけます。
    */
   private _tick() {
+    const time = Date.now();
+    const diffTime = time - this._prevTime;
+    const speedRate = Math.round(diffTime / 16.667); // 60fps = 16.67ms を意図した時間の比率
+
+    // カメラの更新
+    this._camera.update(speedRate);
+    // セーブポイントの更新
+    this._savePoint.update(speedRate);
+
+    this._renderer.render(this._scene, this._camera);
+
+    this._prevTime = time;
+
     requestAnimationFrame(() => {
       this._tick();
     });
+  }
 
-    // カメラの更新
-    this._camera.update();
-    // セーブポイントの更新
-    this._savePoint.update();
+  private _resize() {
+    // サイズを取得
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
-    this._renderer.render(this._scene, this._camera);
+    // レンダラーのサイズを調整する
+    this._renderer.setPixelRatio(window.devicePixelRatio);
+    this._renderer.setSize(width, height);
+
+    // カメラのアスペクト比を正す
+    this._camera.aspect = width / height;
+    this._camera.updateProjectionMatrix();
   }
 }

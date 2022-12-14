@@ -60,11 +60,11 @@ export default class SavePoint extends THREE.Object3D {
   /**
    * フレーム毎に更新をかけます。
    */
-  public update() {
+  public update(speedRate: number) {
     // それぞれの更新
-    this._pillar.update();
-    this._pillar2.update();
-    this._particleEmitter.update();
-    this._swirl.update();
+    this._pillar.update(speedRate);
+    this._pillar2.update(speedRate);
+    this._particleEmitter.update(speedRate);
+    this._swirl.update(speedRate);
   }
 }
