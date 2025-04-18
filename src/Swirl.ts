@@ -31,7 +31,7 @@ export default class Swirl extends THREE.Object3D {
       blending: THREE.AdditiveBlending,
     });
     const torus = new THREE.Mesh(geometry, material);
-    torus.position.y = 0.01;
+    torus.position.y = 0.01; // 少しだけ浮かせる
     torus.rotation.x = (90 * Math.PI) / 180;
     this.add(torus);
   }
