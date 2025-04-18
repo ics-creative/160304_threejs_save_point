@@ -16,7 +16,6 @@ export default class ParticleEmitter extends THREE.Object3D {
 
   /**
    * コンストラクターです。
-   * @constructor
    */
   constructor() {
     super();

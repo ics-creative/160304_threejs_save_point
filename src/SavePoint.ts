@@ -17,7 +17,6 @@ export default class SavePoint extends THREE.Object3D {
 
   /**
    * コンストラクターです。
-   * @constructor
    */
   constructor() {
     super();

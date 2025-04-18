@@ -11,7 +11,6 @@ export default class Camera extends THREE.PerspectiveCamera {
 
   /**
    * コンストラクターです。
-   * @constructor
    */
   constructor() {
     super(45, window.innerWidth / window.innerHeight, 1, 1000);

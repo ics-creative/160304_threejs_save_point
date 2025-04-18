@@ -11,7 +11,6 @@ export default class Swirl extends THREE.Object3D {
 
   /**
    * コンストラクターです。
-   * @constructor
    */
   constructor() {
     super();

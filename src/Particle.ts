@@ -21,7 +21,6 @@ export default class Particle extends THREE.Sprite {
 
   /**
    * コンストラクターです。
-   * @constructor
    */
   constructor() {
     super(material.clone());
