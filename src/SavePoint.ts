@@ -50,6 +50,7 @@ export default class SavePoint extends THREE.Object3D {
         side: THREE.DoubleSide,
         transparent: true,
         blending: THREE.AdditiveBlending,
+        depthWrite: false,
       }),
     );
     ground.scale.multiplyScalar(1.35);

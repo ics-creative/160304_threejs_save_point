@@ -13,7 +13,6 @@ export default class Pillar extends THREE.Object3D {
 
   /**
    * コンストラクターです。
-   * @constructor
    * @param {number} topRadius
    * @param {number} bottomRadius
    * @param {number} height
@@ -42,7 +41,6 @@ export default class Pillar extends THREE.Object3D {
       blending: THREE.AdditiveBlending,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.5,
       depthWrite: false,
     });
     this._cylinder = new THREE.Mesh(geometry, material);

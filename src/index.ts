@@ -1,5 +1,5 @@
-import Main from "./Main";
+import { init } from "./Main";
 
 window.addEventListener("DOMContentLoaded", () => {
-  new Main();
+  init();
 });
