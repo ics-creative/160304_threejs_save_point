@@ -7,13 +7,13 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.14.1",
-    "@types/three": "^0.146.0",
-    "prettier": "^2.8.1",
+    "@types/three": "^0.175.0",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vite": "^6.3.2"
   },
   "dependencies": {
-    "three": "^0.147.0"
+    "three": "^0.175.0"
   },
   "private": true
 }

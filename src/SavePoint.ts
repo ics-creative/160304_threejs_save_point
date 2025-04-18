@@ -40,6 +40,7 @@ export default class SavePoint extends THREE.Object3D {
 
     // 地面の光
     const groundTexture = new THREE.TextureLoader().load("img/ground.png");
+    groundTexture.colorSpace = THREE.SRGBColorSpace;
     const ground = new THREE.Mesh(
       new THREE.PlaneGeometry(10, 10, 32, 32),
       new THREE.MeshBasicMaterial({
@@ -49,7 +50,7 @@ export default class SavePoint extends THREE.Object3D {
         side: THREE.DoubleSide,
         transparent: true,
         blending: THREE.AdditiveBlending,
-      })
+      }),
     );
     ground.scale.multiplyScalar(1.35);
     ground.rotation.x = (90 * Math.PI) / 180;

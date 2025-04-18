@@ -1,9 +1,11 @@
 import * as THREE from "three";
 import { Util } from "./Util";
 
+const texture = new THREE.TextureLoader().load("img/particle.png");
+texture.colorSpace = THREE.SRGBColorSpace;
 const material = new THREE.SpriteMaterial({
   color: 0x007eff,
-  map: new THREE.TextureLoader().load("img/particle.png"),
+  map: texture,
   blending: THREE.AdditiveBlending,
   depthWrite: false,
 });
@@ -41,7 +43,7 @@ export default class Particle extends THREE.Sprite {
     this._velocity.set(
       Util.random(-0.015, 0.015),
       Util.random(0.05, 0.1),
-      Util.random(-0.015, 0.015)
+      Util.random(-0.015, 0.015),
     );
     this.material.opacity = 1;
   }

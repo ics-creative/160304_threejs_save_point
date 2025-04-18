@@ -32,10 +32,14 @@ export default class Main {
     this._renderer = new THREE.WebGLRenderer({ antialias: true });
     this._renderer.setPixelRatio(window.devicePixelRatio);
     this._renderer.setSize(window.innerWidth, window.innerHeight);
+    // 出力カラー空間を設定 (r152以降)
+    this._renderer.outputColorSpace = THREE.SRGBColorSpace;
+    // もしr152より古いバージョンをお使いの場合は、以下を使用します
+    // this._renderer.outputEncoding = THREE.sRGBEncoding;
     document.body.appendChild(this._renderer.domElement);
 
     // 環境光
-    const light = new THREE.PointLight(0x555555, 1.6, 50);
+    const light = new THREE.PointLight(0x555555, 500, 50);
     light.position.set(0.577, 0.577, 0.577);
     light.castShadow = true;
     this._scene.add(light);
@@ -49,6 +53,7 @@ export default class Main {
       texture.magFilter = THREE.NearestFilter;
       texture.minFilter = THREE.NearestFilter;
       texture.generateMipmaps = false;
+      texture.colorSpace = THREE.SRGBColorSpace;
       const geometry = new THREE.PlaneGeometry(100, 100, 1, 1);
       const material = new THREE.MeshPhongMaterial({
         map: texture,

@@ -25,6 +25,7 @@ export default class Pillar extends THREE.Object3D {
     this._texture = new THREE.TextureLoader().load("img/pillar.png");
     this._texture.wrapS = THREE.RepeatWrapping;
     this._texture.repeat.set(10, 1);
+    this._texture.colorSpace = THREE.SRGBColorSpace;
 
     // 光の柱
     const geometry = new THREE.CylinderGeometry(
@@ -33,7 +34,7 @@ export default class Pillar extends THREE.Object3D {
       height,
       20,
       1,
-      true
+      true,
     );
     const material = new THREE.MeshBasicMaterial({
       color: 0x007eff,
