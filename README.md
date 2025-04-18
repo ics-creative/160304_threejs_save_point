@@ -31,11 +31,7 @@ npm install
 以下のコマンドを実行することで、TypeScriptコードのWatchが開始され、編集後に自動的にコンパイルされます。
 
 ```bash
-npm start
+npm dev
 ```
 
 同時に簡易Webサーバーも起動するので以下のURLで確認できます。
-
-```
-http://localhost:8080/
-```

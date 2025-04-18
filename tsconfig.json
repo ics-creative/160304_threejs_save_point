@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
     "strict": true,
-    "sourceMap": true,
     // TSはECMAScriptのやや互換性を意識したバージョンに変換
-    "target": "ES2020",
+    "target": "ESNext",
     // TSのモジュールはES Modulesとして出力
-    "module": "ES2020",
+    "module": "ESNext",
     // node_modules からライブラリを読み込む
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "lib": [
-      "ES2020",
+      "ESNext",
       "DOM"
     ]
-  }
+  },
+  "exclude": ["node_modules", "demo"]
 }

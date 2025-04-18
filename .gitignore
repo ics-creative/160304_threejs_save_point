@@ -6,3 +6,4 @@ typings
 /yarn.lock
 /.idea/.gitignore
 /.idea
+package-lock.json
