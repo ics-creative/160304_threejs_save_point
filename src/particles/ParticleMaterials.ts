@@ -1,6 +1,6 @@
 import * as THREE from "three/webgpu";
-import imageOrb from "./img/ball.png";
-import imageSpark from "./img/particle.png";
+import imageOrb from "../img/ball.png";
+import imageSpark from "../img/particle.png";
 
 // テクスチャー
 const loader = new THREE.TextureLoader();

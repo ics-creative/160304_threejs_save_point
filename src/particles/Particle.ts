@@ -2,6 +2,8 @@ import { gsap } from "gsap";
 import * as THREE from "three/webgpu";
 import { orbMaterial, sparkMaterial } from "./ParticleMaterials";
 
+const getHeight = () => THREE.MathUtils.randFloat(5, 8);
+
 /** セーブポイント内を浮遊する光粒子です。 */
 export default class Particle extends THREE.Sprite {
   /** 十字型のテクスチャーを使用するかどうか。 */
@@ -26,7 +28,6 @@ export default class Particle extends THREE.Sprite {
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
     const duration = THREE.MathUtils.randFloat(6, 10);
-    const getHeight = () => 0.5 + THREE.MathUtils.randFloat(8, 12);
     const size = THREE.MathUtils.randFloat(spark ? 0.4 : 0.1, spark ? 0.6 : 0.2);
     this.position.set(x, 0.5, z);
     this.material.rotation = angle;
@@ -56,7 +57,7 @@ export default class Particle extends THREE.Sprite {
     // 細かな明滅
     gsap
       .to(this._motion, {
-        twinkle: 0.8,
+        twinkle: 0.7,
         duration: THREE.MathUtils.randFloat(0.05, 0.1),
         ease: "power4.inOut",
         repeat: -1,

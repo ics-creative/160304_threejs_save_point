@@ -1,5 +1,5 @@
 import * as THREE from "three/webgpu";
-import imageTile from "./img/tile.png";
+import imageTile from "../img/tile.png";
 
 /** タイル模様の床を表示します。 */
 export default class Floor extends THREE.Mesh {

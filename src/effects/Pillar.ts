@@ -1,5 +1,5 @@
 import * as THREE from "three/webgpu";
-import imagePillar from "./img/pillar.png";
+import imagePillar from "../img/pillar.png";
 
 /** セーブポイント中央の光柱を表示します。 */
 export default class Pillar extends THREE.Object3D {
@@ -49,7 +49,7 @@ export default class Pillar extends THREE.Object3D {
     const inner = new THREE.Mesh(geometry, this._innerMaterial);
     outer.position.y = 5;
     inner.position.y = 5;
-    inner.scale.set(0.9, 1, 0.9);
+    inner.scale.set(0.95, 1, 0.95);
     this.scale.y = 0.8;
     this.add(outer, inner);
   }

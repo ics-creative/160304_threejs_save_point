@@ -49,8 +49,8 @@ export default class WaveParticle extends THREE.Sprite {
         this.material,
         {
           keyframes: {
-            // 0.8と1を交互にして短く明滅する
-            opacity: [1, 0.8, 1, 0.8, 1, 0.8, 1, 0.8, 1, 0],
+            // 0.7と1を交互にして短く明滅する
+            opacity: [1, 0.7, 1, 0.7, 1, 0.7, 1, 0.7, 1, 0.7, 1, 0.7, 1, 0],
             easeEach: "power4.inOut",
           },
           duration,

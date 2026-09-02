@@ -1,10 +1,10 @@
 import { gsap } from "gsap";
 import * as THREE from "three/webgpu";
-import MagicCircle from "./MagicCircle";
-import ParticleEmitter from "./ParticleEmitter";
-import Pillar from "./Pillar";
-import Swirl from "./Swirl";
-import imageGround from "./img/ground.png";
+import MagicCircle from "../effects/MagicCircle";
+import Pillar from "../effects/Pillar";
+import Swirl from "../effects/Swirl";
+import imageGround from "../img/ground.png";
+import ParticleEmitter from "../particles/ParticleEmitter";
 
 /** セーブポイントを構成するエフェクトとアニメーションを管理します。 */
 export default class SavePoint extends THREE.Object3D {
@@ -75,27 +75,17 @@ export default class SavePoint extends THREE.Object3D {
     const timeline = gsap.timeline({ delay: 2, repeat: -1, repeatDelay: 1 });
     timeline
       .to(this._motion, {
-        energy: 0.4,
-        sparkle: 0.4,
-        duration: 0.8,
-        ease: "power3.in",
-      })
-      .to(this._motion, {
         energy: 1,
         sparkle: 1,
-        duration: 0.4,
-        ease: "power2.inOut",
-        onStart: () => this._particleEmitter.emitWave(),
+        duration: 1.2,
+        ease: "power3.inOut",
       })
-      .to(
-        this._motion,
-        {
-          energy: 0,
-          sparkle: 0.2,
-          duration: 3,
-          ease: "power1.out",
-        },
-        1.5,
-      );
+      .call(() => this._particleEmitter.emitWave(), [], "-=0.5")
+      .to(this._motion, {
+        energy: 0,
+        sparkle: 0.2,
+        duration: 3,
+        ease: "power1.out",
+      });
   }
 }

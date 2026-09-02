@@ -1,5 +1,5 @@
 import * as THREE from "three/webgpu";
-import imageSwirl from "./img/swirl.png";
+import imageSwirl from "../img/swirl.png";
 
 /** 地面を流れる渦状の光を表示します。 */
 export default class Swirl extends THREE.Object3D {

@@ -2,8 +2,8 @@ import * as THREE from "three/webgpu";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { bloom } from "three/addons/tsl/display/BloomNode.js";
 import { pass } from "three/tsl";
-import Floor from "./Floor";
-import SavePoint from "./SavePoint";
+import Floor from "./objects/Floor";
+import SavePoint from "./objects/SavePoint";
 
 /** シーンを初期化して描画を開始します。 */
 async function init() {

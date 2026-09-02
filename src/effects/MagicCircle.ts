@@ -1,8 +1,8 @@
 import { gsap } from "gsap";
 import * as THREE from "three/webgpu";
-import imageCenter from "./img/magic-circle-center.svg";
-import imageMiddle from "./img/magic-circle-middle.svg";
-import imageOuter from "./img/magic-circle-outer.svg";
+import imageCenter from "../img/magic-circle-center.svg";
+import imageMiddle from "../img/magic-circle-middle.svg";
+import imageOuter from "../img/magic-circle-outer.svg";
 
 /** 回転する三層の魔法陣を表示します。 */
 export default class MagicCircle extends THREE.Object3D {
