@@ -1,47 +1,42 @@
-import * as THREE from "three";
+import * as THREE from "three/webgpu";
+import imageSwirl from "./img/swirl.png";
 
-/**
- * 地面の渦のクラスです。
- */
+/** 地面を流れる渦状の光を表示します。 */
 export default class Swirl extends THREE.Object3D {
-  /** フレーム毎にカウントされる値です。 */
-  private _counter: number = 0;
-  /** マテリアルにあてるテクスチャーです。 */
+  /** 明るさを更新するマテリアルです。 */
+  private readonly _material: THREE.MeshBasicMaterial;
+  /** 光の流れを動かすテクスチャーです。 */
   private readonly _texture: THREE.Texture;
 
-  /**
-   * コンストラクターです。
-   */
   constructor() {
     super();
 
-    // テクスチャ
-    this._texture = new THREE.TextureLoader().load("img/swirl.png");
+    this._texture = new THREE.TextureLoader().load(imageSwirl);
     this._texture.offset.y = -0.25;
     this._texture.wrapS = THREE.RepeatWrapping;
     this._texture.colorSpace = THREE.SRGBColorSpace;
 
-    // ドーナツ
-    const geometry = new THREE.TorusGeometry(6, 3, 2, 100);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x007eff,
+    this._material = new THREE.MeshBasicMaterial({
+      color: 0x0080ff,
       map: this._texture,
       transparent: true,
-      // wireframe: true,
       blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      opacity: 0.1,
     });
-    const torus = new THREE.Mesh(geometry, material);
-    torus.position.y = 0.01; // 少しだけ浮かせる
-    torus.rotation.x = (90 * Math.PI) / 180;
-    this.add(torus);
+
+    const mesh = new THREE.Mesh(new THREE.TorusGeometry(4, 1, 2, 100), this._material);
+    mesh.position.y = 0.02;
+    mesh.rotation.x = Math.PI / 2;
+    this.add(mesh);
   }
 
-  /**
-   * フレーム毎に更新をかけます。
-   */
-  public update(speedRate: number) {
-    this._counter += speedRate;
-    const angle = (this._counter * Math.PI) / 180;
-    this._texture.offset.x = -angle * 0.2;
+  /** 回転・光の流れ・明るさを更新します。 */
+  update(delta: number, energy: number) {
+    const speed = 0.1 + energy * 0.4;
+    this.rotation.y -= delta * speed;
+    this._texture.offset.x -= delta * speed;
+    this._material.color.setRGB(energy, 0.5 + energy * 0.5, 1).multiplyScalar(1 + energy);
+    this._material.opacity = 0.35 + energy * 0.2;
   }
 }

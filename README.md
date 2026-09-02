@@ -1,37 +1,41 @@
 # Three.jsで作るセーブポイント風エフェクト
-ICS MEDIA記事「[Three.js初学者必見！エフェクト作成の基本ノウハウまとめ]()」にて解説しています。
 
+ICS MEDIAの記事「[エフェクト作成入門講座 Three.js編 RPGのセーブポイント風の魔法陣](https://ics.media/entry/11401/)」で使用しているデモです。
 
 ## デモ
 
-こちらからデモを確認できます
+こちらからデモを確認できます。
 
-- [デモページ](https://ics-creative.github.io/160304_threejs_save_point/demo/)
+- [デモページ](https://ics-creative.github.io/160304_threejs_save_point/dist/)
 
+## 利用ライブラリ・ツール
 
-## 利用ライブラリ
+- [Three.js](https://threejs.org/)
+- [GSAP](https://gsap.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [Oxlint / Oxfmt](https://oxc.rs/)
 
-- [Three.js](http://threejs.org/)
+Node.js 26以上を推奨します。
 
+## 開発
 
-## デモの開発環境構築
-
-デモコードはTypeScriptで書かれているので、実際に編集や実行するためには環境構築が必要です。以下にそのフローを記載します。
-
-### 1. npmモジュールをインストール
-
-以下のコードを実行して必要なnpmモジュールをインストールしてください。
-
-```bash
-npm install
-```
-
-### 2. ソースコードのWatchと簡易Webサーバーの起動
-
-以下のコマンドを実行することで、TypeScriptコードのWatchが開始され、編集後に自動的にコンパイルされます。
+依存パッケージをインストールします。
 
 ```bash
-npm dev
+npm ci
 ```
 
-同時に簡易Webサーバーも起動するので以下のURLで確認できます。
+開発サーバーを起動します。
+
+```bash
+npm run dev
+```
+
+そのほかのスクリプトです。
+
+```bash
+npm run lint
+npm run format
+npm run build
+```

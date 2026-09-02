@@ -1,54 +1,33 @@
-import * as THREE from "three";
+import * as THREE from "three/webgpu";
 import Particle from "./Particle";
+import WaveParticle from "./WaveParticle";
 
-/**
- * パーティクルエミッタークラスです。
- */
+/** 通常粒子と発動粒子をまとめて管理します。 */
 export default class ParticleEmitter extends THREE.Object3D {
-  /** フレーム毎にカウントされる値です。 */
-  private _counter: number = 0;
-  /** パーティクル格納配列です。 */
-  private _pool: Particle[] = [];
-  /** 生成するパーティクルの数です。 */
-  private _particleNum: number = 50;
-  /** パーティクルを発生させる間隔です。 */
-  private _interval: number = 2;
+  /** 常に上昇する丸と閃光です。 */
+  private readonly _particles = Array.from({ length: 80 }, (_, index) => new Particle(index));
+  /** 発動時に円内から立ち上がる縦光です。 */
+  private readonly _waveParticles = Array.from(
+    { length: 240 },
+    (_, index) => new WaveParticle(index),
+  );
 
-  /**
-   * コンストラクターです。
-   */
   constructor() {
     super();
+    this.add(...this._particles, ...this._waveParticles);
   }
 
-  /**
-   * フレーム毎に更新をかけます。
-   */
-  public update(speedRate: number) {
-    // カウンターをインクリメント
-    this._counter += speedRate;
-
-    // パーティクルを数分更新
-    const length = this._pool.length;
-    for (let i = 0; i < length; i++) {
-      const particle = this._pool[i];
-      particle.update(speedRate);
-    }
-
-    if (Math.round(this._counter) % this._interval == 0) {
-      this._addParticle();
+  /** 発動粒子を時間差で再生します。 */
+  emitWave() {
+    for (let i = 0; i < this._waveParticles.length; i++) {
+      this._waveParticles[i].trigger((i % 3) * 0.05 + Math.random() * 0.05);
     }
   }
 
-  /**
-   * パーティクルを追加します。
-   */
-  private _addParticle() {
-    if (this._pool.length >= this._particleNum) {
-      return;
+  /** 通常粒子の発光を更新します。 */
+  update(energy: number, sparkle: number) {
+    for (const particle of this._particles) {
+      particle.update(energy, sparkle);
     }
-    const particle = new Particle();
-    this._pool.push(particle);
-    this.add(particle);
   }
 }

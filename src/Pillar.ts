@@ -1,67 +1,72 @@
-import * as THREE from "three";
+import * as THREE from "three/webgpu";
+import imagePillar from "./img/pillar.png";
 
-/**
- * 光の柱クラスです。
- */
+/** セーブポイント中央の光柱を表示します。 */
 export default class Pillar extends THREE.Object3D {
-  /** フレーム毎にカウントされる値です。 */
-  private _counter: number = 0;
-  /** マテリアルにあてるテクスチャーです。 */
-  private readonly _texture: THREE.Texture;
-  /** 柱のメッシュです。 */
-  private readonly _cylinder: THREE.Mesh;
+  /** 外側の光を描画するマテリアルです。 */
+  private readonly _outerMaterial: THREE.MeshBasicMaterial;
+  /** 内側の光を描画するマテリアルです。 */
+  private readonly _innerMaterial: THREE.MeshBasicMaterial;
+  /** 外側の光を流すテクスチャーです。 */
+  private readonly _outerTexture: THREE.Texture;
+  /** 内側の光を流すテクスチャーです。 */
+  private readonly _innerTexture: THREE.Texture;
 
-  /**
-   * コンストラクターです。
-   * @param {number} topRadius
-   * @param {number} bottomRadius
-   * @param {number} height
-   */
-  constructor(topRadius: number, bottomRadius: number, height: number) {
+  constructor() {
     super();
 
-    // テクスチャ
-    this._texture = new THREE.TextureLoader().load("img/pillar.png");
-    this._texture.wrapS = THREE.RepeatWrapping;
-    this._texture.repeat.set(10, 1);
-    this._texture.colorSpace = THREE.SRGBColorSpace;
+    const textureLoader = new THREE.TextureLoader();
+    this._outerTexture = textureLoader.load(imagePillar);
+    this._innerTexture = textureLoader.load(imagePillar);
+    for (const texture of [this._outerTexture, this._innerTexture]) {
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.colorSpace = THREE.SRGBColorSpace;
+    }
+    this._outerTexture.repeat.x = 6;
+    this._innerTexture.repeat.x = 3;
 
-    // 光の柱
-    const geometry = new THREE.CylinderGeometry(
-      topRadius,
-      bottomRadius,
-      height,
-      20,
-      1,
-      true,
-    );
-    const material = new THREE.MeshBasicMaterial({
-      color: 0x007eff,
-      map: this._texture,
+    const geometry = new THREE.CylinderGeometry(3, 3, 10, 64, 1, true);
+    this._outerMaterial = new THREE.MeshBasicMaterial({
+      color: 0x0070e0,
+      map: this._outerTexture,
       blending: THREE.AdditiveBlending,
       side: THREE.DoubleSide,
       transparent: true,
       depthWrite: false,
+      opacity: 0.5,
     });
-    this._cylinder = new THREE.Mesh(geometry, material);
-    // 地面の高さに合わせる
-    this._cylinder.position.set(0, height / 2, 0);
+    this._innerMaterial = new THREE.MeshBasicMaterial({
+      color: 0x40d8ff,
+      map: this._innerTexture,
+      blending: THREE.AdditiveBlending,
+      side: THREE.DoubleSide,
+      transparent: true,
+      depthWrite: false,
+      opacity: 0.5,
+    });
 
-    this.add(this._cylinder);
+    const outer = new THREE.Mesh(geometry, this._outerMaterial);
+    const inner = new THREE.Mesh(geometry, this._innerMaterial);
+    outer.position.y = 5;
+    inner.position.y = 5;
+    inner.scale.set(0.9, 1, 0.9);
+    this.scale.y = 0.8;
+    this.add(outer, inner);
   }
 
-  /**
-   * フレーム毎に更新をかけます。
-   */
-  public update(speedRate: number) {
-    // console.log(speedRate * 1.0);
-    this._counter += speedRate;
-    // this._counter = this._counter + 0.5 * speedRate;
-    const angle = (this._counter * Math.PI) / 180;
-
-    // テクスチャを上下させる
-    this._texture.offset.y = 0.1 + 0.2 * Math.sin(angle * 3);
-    // テクスチャを回転させる
-    this._texture.offset.x = angle;
+  /** 回転・光の流れ・明るさを更新します。 */
+  update(delta: number, energy: number) {
+    this.scale.y = 0.8 + energy * 0.2;
+    this.rotation.y += delta * 0.2;
+    this._outerTexture.offset.x += delta * 0.2;
+    this._innerTexture.offset.x -= delta * 0.3;
+    this._outerMaterial.color
+      .setRGB(energy * 0.2, 0.3 + energy * 0.4, 1)
+      .multiplyScalar(1 + energy * 0.5);
+    this._innerMaterial.color
+      .setRGB(energy * 0.4, 0.7 + energy * 0.1, 1)
+      .multiplyScalar(1 + energy);
+    this._outerMaterial.opacity = 0.25 + energy * 0.25;
+    this._innerMaterial.opacity = this._outerMaterial.opacity * 0.6;
   }
 }
