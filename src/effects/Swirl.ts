@@ -36,7 +36,9 @@ export default class Swirl extends THREE.Object3D {
     const speed = 0.1 + energy * 0.4;
     this.rotation.y -= delta * speed;
     this._texture.offset.x -= delta * speed;
-    this._material.color.setRGB(energy, 0.5 + energy * 0.5, 1).multiplyScalar(1 + energy);
+    this._material.color
+      .setRGB(energy * 0.8, 0.5 + energy * 0.4, 1)
+      .multiplyScalar(1 + energy * 0.8);
     this._material.opacity = 0.35 + energy * 0.2;
   }
 }

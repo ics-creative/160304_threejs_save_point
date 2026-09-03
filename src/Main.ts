@@ -5,7 +5,7 @@ import { pass } from "three/tsl";
 import Floor from "./objects/Floor";
 import SavePoint from "./objects/SavePoint";
 
-/** シーンを初期化して描画を開始します。 */
+/** 画像とレンダラーの準備後に描画とモーションを開始します。 */
 async function init() {
   // シーンとカメラ
   const scene = new THREE.Scene();
@@ -18,6 +18,14 @@ async function init() {
   const renderer = new THREE.WebGPURenderer({ antialias: true });
   document.body.appendChild(renderer.domElement);
   await renderer.init();
+
+  // 画像と3Dオブジェクト
+  const texturesReady = new Promise<void>((resolve) => {
+    THREE.DefaultLoadingManager.onLoad = resolve;
+  });
+  const savePoint = new SavePoint();
+  scene.add(new Floor(), savePoint);
+  await texturesReady;
 
   // カメラ制御
   const controls = new OrbitControls(camera, renderer.domElement);
@@ -39,10 +47,6 @@ async function init() {
   const postProcessing = new THREE.RenderPipeline(renderer);
   postProcessing.outputNode = sceneColor.add(bloomPass);
 
-  // 3Dオブジェクト
-  const savePoint = new SavePoint();
-  scene.add(new Floor(), savePoint);
-
   // リサイズ処理
   const resize = () => {
     const width = window.innerWidth;
@@ -54,21 +58,23 @@ async function init() {
     camera.updateProjectionMatrix();
   };
 
+  resize();
+  window.addEventListener("resize", resize);
+
   // アニメーション
   const timer = new THREE.Timer();
   timer.connect(document);
+  postProcessing.render();
+  requestAnimationFrame(() => savePoint.start());
   renderer.setAnimationLoop(() => {
     timer.update();
     const delta = timer.getDelta();
     controls.update(delta);
     const energy = savePoint.update(delta);
-    bloomPass.strength.value = 1 + energy * 0.5;
+    bloomPass.strength.value = 1 + energy * 0.3;
     bloomPass.radius.value = 0.5 + energy * 0.1;
     postProcessing.render();
   });
-
-  resize();
-  window.addEventListener("resize", resize);
 }
 
 init();
