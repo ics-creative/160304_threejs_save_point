@@ -33,6 +33,9 @@ export default class SavePoint extends THREE.Object3D {
     // 地面の光
     const groundTexture = new THREE.TextureLoader().load(imageGround);
     groundTexture.colorSpace = THREE.SRGBColorSpace;
+    // 明輪を魔法陣の外へずらしつつ、swirlの内側へ収める
+    groundTexture.repeat.setScalar(0.86);
+    groundTexture.offset.setScalar(0.07);
     this._groundMaterial = new THREE.MeshBasicMaterial({
       color: 0x0070d0,
       map: groundTexture,
@@ -40,7 +43,7 @@ export default class SavePoint extends THREE.Object3D {
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      opacity: 0.5,
+      opacity: 0.65,
     });
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(8.5, 8.5), this._groundMaterial);
     ground.rotation.x = -Math.PI / 2;
@@ -73,7 +76,7 @@ export default class SavePoint extends THREE.Object3D {
     this._swirl.update(delta, energy);
     this._particleEmitter.update(energy, sparkle);
     this._groundMaterial.color.setRGB(energy * 0.4, 0.4 + energy * 0.4, 1);
-    this._groundMaterial.opacity = 0.5 + energy * 0.15;
+    this._groundMaterial.opacity = 0.65 + energy * 0.15;
     this._light.color.setRGB(energy, 0.6 + energy * 0.4, 1);
     this._light.intensity = 150 + energy * 200;
     return energy;
