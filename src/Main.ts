@@ -12,7 +12,7 @@ async function init() {
   scene.background = new THREE.Color(0x0);
   scene.fog = new THREE.FogExp2(0x0, 0.03);
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-  camera.position.set(15, 12, 0);
+  camera.position.set(12, 10.5, 0);
 
   // レンダラー
   const renderer = new THREE.WebGPURenderer({ antialias: true });
@@ -30,7 +30,7 @@ async function init() {
   // カメラ制御
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.target.set(0, 4, 0);
-  controls.minDistance = 12;
+  controls.minDistance = 6;
   controls.maxDistance = 24;
   controls.maxPolarAngle = Math.PI / 2;
   controls.enableDamping = true;
