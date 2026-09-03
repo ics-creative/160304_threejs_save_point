@@ -6,7 +6,7 @@ ICS MEDIAの記事「[エフェクト作成入門講座 Three.js編 RPGのセー
 
 こちらからデモを確認できます。
 
-- [デモページ](https://ics-creative.github.io/160304_threejs_save_point/dist/)
+- [デモページ](https://ics-creative.github.io/160304_threejs_save_point/)
 
 ## 利用ライブラリ・ツール
 
