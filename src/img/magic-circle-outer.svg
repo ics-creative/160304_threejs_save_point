@@ -7,16 +7,16 @@
     <path id="rune-b" d="M250 30V62M250 46 264 34M250 46 264 58" />
   </defs>
   <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="256" cy="256" r="252" stroke-width="4" />
-    <circle cx="256" cy="256" r="244" stroke-width="1" />
-    <circle cx="256" cy="256" r="214" stroke-width="2" stroke-dasharray="2 8" />
-    <circle cx="256" cy="256" r="204" stroke-width="3" />
-    <circle cx="256" cy="256" r="194" stroke-width="1" stroke-dasharray="5 10" />
+    <circle cx="256" cy="256" r="252" stroke-width="7" />
+    <circle cx="256" cy="256" r="244" stroke-width="3" />
+    <circle cx="256" cy="256" r="214" stroke-width="4" stroke-dasharray="2 8" />
+    <circle cx="256" cy="256" r="204" stroke-width="6" />
+    <circle cx="256" cy="256" r="194" stroke-width="3" stroke-dasharray="5 10" />
     <path
       d="M256 68 350 93 419 162 444 256 419 350 350 419 256 444 162 419 93 350 68 256 93 162 162 93Z"
-      stroke-width="2"
+      stroke-width="4"
     />
-    <g stroke-width="2">
+    <g stroke-width="4">
       <use href="#rune-a" />
       <use href="#rune-b" transform="rotate(30 256 256)" />
       <use href="#rune-a" transform="rotate(60 256 256)" />

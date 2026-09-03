@@ -6,6 +6,8 @@ import imageOuter from "../img/magic-circle-outer.svg";
 
 /** 回転する三層の魔法陣を表示します。 */
 export default class MagicCircle extends THREE.Object3D {
+  /** 初回モーションで個別に展開するレイヤーです。 */
+  private readonly _layers: THREE.Object3D[] = [];
   /** 各レイヤーの明るさを更新するマテリアルです。 */
   private readonly _materials: THREE.MeshBasicMaterial[] = [];
   /** 各レイヤーの回転アニメーションです。 */
@@ -19,7 +21,7 @@ export default class MagicCircle extends THREE.Object3D {
     const layers = [
       { image: imageOuter, color: 0x0060e0, duration: 20, scale: 1, turn: 1 },
       { image: imageMiddle, color: 0x00a0ff, duration: 12, scale: 0.7, turn: -1 },
-      { image: imageCenter, color: 0x60d0ff, duration: 8, scale: 0.4, turn: 1 },
+      { image: imageCenter, color: 0x60d0ff, duration: 8, scale: 1, turn: 1 },
     ];
 
     // 魔法陣のレイヤー
@@ -40,8 +42,10 @@ export default class MagicCircle extends THREE.Object3D {
       plane.renderOrder = 1;
 
       const layer = new THREE.Object3D();
+      layer.scale.setScalar(0);
       layer.add(plane);
       this.add(layer);
+      this._layers.push(layer);
       this._materials.push(material);
       this._rotations.push(
         gsap.to(layer.rotation, {
@@ -52,6 +56,19 @@ export default class MagicCircle extends THREE.Object3D {
         }),
       );
     }
+  }
+
+  /** 中心から外周へ、各レイヤーを少しずつずらして展開します。 */
+  startEntrance() {
+    const scales = [...this._layers].reverse().map((layer) => layer.scale);
+    gsap.to(scales, {
+      x: 1,
+      y: 1,
+      z: 1,
+      duration: 0.65,
+      stagger: 0.35,
+      ease: "back.out(1.4)",
+    });
   }
 
   /** 魔法陣の回転速度と明るさを更新します。 */

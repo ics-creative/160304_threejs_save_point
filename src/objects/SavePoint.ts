@@ -40,17 +40,23 @@ export default class SavePoint extends THREE.Object3D {
       transparent: true,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
-      opacity: 0.3,
+      opacity: 0.5,
     });
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), this._groundMaterial);
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(8.5, 8.5), this._groundMaterial);
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = 0.05;
 
     // エフェクトの配置
     this._light.position.y = 2;
     this._spreadLight.brightness = 0.8;
-    this._floorEffects.add(ground, this._magicCircle, this._spreadLight, this._swirl);
-    this.add(this._floorEffects, this._pillar, this._particleEmitter, this._light);
+    this._floorEffects.add(ground, this._spreadLight, this._swirl);
+    this.add(
+      this._floorEffects,
+      this._magicCircle,
+      this._pillar,
+      this._particleEmitter,
+      this._light,
+    );
 
     // 初回モーションの開始位置
     this._pillar.position.y = -8;
@@ -67,7 +73,7 @@ export default class SavePoint extends THREE.Object3D {
     this._swirl.update(delta, energy);
     this._particleEmitter.update(energy, sparkle);
     this._groundMaterial.color.setRGB(energy * 0.4, 0.4 + energy * 0.4, 1);
-    this._groundMaterial.opacity = 0.3 + energy * 0.1;
+    this._groundMaterial.opacity = 0.5 + energy * 0.15;
     this._light.color.setRGB(energy, 0.6 + energy * 0.4, 1);
     this._light.intensity = 150 + energy * 200;
     return energy;
@@ -76,6 +82,7 @@ export default class SavePoint extends THREE.Object3D {
   /** 初回の出現と周期的な明滅を開始します。 */
   start() {
     // 初回の出現
+    this._magicCircle.startEntrance();
     gsap
       .timeline()
       .to(this._pillar.position, {

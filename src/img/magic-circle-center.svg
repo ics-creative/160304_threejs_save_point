@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <defs>
-    <circle id="node" cx="256" cy="112" r="6" />
+    <circle id="node" cx="256" cy="72" r="6" />
   </defs>
   <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="256" cy="256" r="224" stroke-width="5" />
-    <circle cx="256" cy="256" r="196" stroke-width="2" stroke-dasharray="4 10" />
-    <circle cx="256" cy="256" r="170" stroke-width="3" />
-    <path d="M256 54 432 358H80Z" stroke-width="5" />
-    <path d="M256 458 80 154H432Z" stroke-width="5" />
-    <path d="M256 106 386 181 386 331 256 406 126 331 126 181Z" stroke-width="3" />
-    <g stroke-width="3">
+    <circle cx="256" cy="256" r="224" stroke-width="8" />
+    <circle cx="256" cy="256" r="196" stroke-width="4" stroke-dasharray="4 10" />
+    <circle cx="256" cy="256" r="170" stroke-width="5" />
+    <rect x="111" y="111" width="290" height="290" stroke-width="8" />
+    <rect x="111" y="111" width="290" height="290" stroke-width="8" transform="rotate(45 256 256)" />
+    <rect x="133" y="133" width="246" height="246" stroke-width="5" transform="rotate(22.5 256 256)" />
+    <g stroke-width="5">
       <use href="#node" />
-      <use href="#node" transform="rotate(60 256 256)" />
-      <use href="#node" transform="rotate(120 256 256)" />
+      <use href="#node" transform="rotate(45 256 256)" />
+      <use href="#node" transform="rotate(90 256 256)" />
+      <use href="#node" transform="rotate(135 256 256)" />
       <use href="#node" transform="rotate(180 256 256)" />
-      <use href="#node" transform="rotate(240 256 256)" />
-      <use href="#node" transform="rotate(300 256 256)" />
+      <use href="#node" transform="rotate(225 256 256)" />
+      <use href="#node" transform="rotate(270 256 256)" />
+      <use href="#node" transform="rotate(315 256 256)" />
     </g>
-    <circle cx="256" cy="256" r="82" stroke-width="4" />
-    <circle cx="256" cy="256" r="44" stroke-width="2" />
-    <path
-      d="M256 182 268 238 324 226 280 256 324 286 268 274 256 330 244 274 188 286 232 256 188 226 244 238Z"
-      stroke-width="3"
-    />
+    <circle cx="256" cy="256" r="82" stroke-width="6" />
+    <circle cx="256" cy="256" r="44" stroke-width="4" />
+    <rect x="198" y="198" width="116" height="116" stroke-width="6" transform="rotate(22.5 256 256)" />
+    <rect x="225" y="225" width="62" height="62" stroke-width="4" transform="rotate(45 256 256)" />
   </g>
 </svg>

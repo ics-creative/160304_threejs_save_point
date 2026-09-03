@@ -1,12 +1,12 @@
 import { gsap } from "gsap";
 import * as THREE from "three/webgpu";
-import { orbMaterial, sparkMaterial } from "./ParticleMaterials";
+import { orbMaterial, particleDisplayScale, sparkMaterial } from "./ParticleMaterials";
 
 const getHeight = () => THREE.MathUtils.randFloat(5, 8);
 
 /** セーブポイント内を浮遊する光粒子です。 */
 export default class Particle extends THREE.Sprite {
-  /** 十字型のテクスチャーを使用するかどうか。 */
+  /** 強く光る粒子用のテクスチャーを使用するかどうか。 */
   private readonly _spark: boolean;
   /** 明滅前の基本色です。 */
   private readonly _color: THREE.Color;
@@ -29,9 +29,10 @@ export default class Particle extends THREE.Sprite {
     const z = Math.sin(angle) * radius;
     const duration = THREE.MathUtils.randFloat(6, 10);
     const size = THREE.MathUtils.randFloat(spark ? 0.4 : 0.1, spark ? 0.6 : 0.2);
+    const displaySize = spark ? size * particleDisplayScale : size;
     this.position.set(x, 0.5, z);
     this.material.rotation = angle;
-    this.scale.setScalar(size);
+    this.scale.setScalar(displaySize);
 
     // 上昇とフェード。高さは周期ごとに変える
     gsap

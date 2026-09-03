@@ -1,6 +1,6 @@
 import { gsap } from "gsap";
 import * as THREE from "three/webgpu";
-import { sparkMaterial } from "./ParticleMaterials";
+import { particleDisplayScale, sparkMaterial } from "./ParticleMaterials";
 
 const waveColors = [0xffffff, 0xa0e0ff, 0x20c0ff, 0x4080ff];
 
@@ -20,8 +20,9 @@ export default class WaveParticle extends THREE.Sprite {
     const duration = THREE.MathUtils.randFloat(1, 2);
     const height = THREE.MathUtils.randFloat(6, 10);
     const size = THREE.MathUtils.randFloat(0.2, 0.4);
+    const displaySize = size * particleDisplayScale;
     this.position.set(Math.cos(angle) * radius, 0.5, Math.sin(angle) * radius);
-    this.scale.set(size * 0.5, size, 1);
+    this.scale.set(displaySize * 0.5, displaySize, 1);
     this.material.opacity = 0;
     this.visible = false;
 
@@ -40,7 +41,10 @@ export default class WaveParticle extends THREE.Sprite {
       .to(
         this.scale,
         {
-          keyframes: { y: [size, size * 4, size], easeEach: "power4.inOut" },
+          keyframes: {
+            y: [displaySize, displaySize * 4, displaySize],
+            easeEach: "power4.inOut",
+          },
           duration,
         },
         0,
